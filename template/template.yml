@@ -1,0 +1,11 @@
+--- #Deploying from a template
+- hosts: webservers
+  become: yes
+  vars:
+    webdir: '/opt/'
+
+  tasks:
+    - name: Deploy the web template
+      template:
+        src: /root/httpd.template
+        dest: /etc/httpd/conf/httpd.conf

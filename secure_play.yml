@@ -1,0 +1,14 @@
+---
+- name: Deploy DBA password file
+  hosts: dbservers
+  become: yes
+
+  tasks:
+    - name: Create file pgpass
+      lineinfile:
+        create: yes
+        line: 'LinuxAcad'
+        path: /home/dba/.pgpass
+        owner: dba
+        group: dba
+        mode: 0600

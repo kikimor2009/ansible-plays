@@ -1,0 +1,20 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+   - name: Start && Enable postgresql
+     service:
+       name: httpd
+       state: started
+       enabled: yes
+
+
+- name: Start postgresql
+  hosts: dbservers:admins
+  become: yes
+
+  tasks:
+   - systemd:
+       name: postgresql
+       state: started
+       no_block: yes

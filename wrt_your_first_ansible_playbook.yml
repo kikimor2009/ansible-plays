@@ -1,0 +1,46 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Insert line
+      lineinfile:
+        path: /etc/hosts
+        line: 'ansible.xyzcorp.com  169.168.0.1'
+    - name: Install elinks
+      package:
+        name: elinks
+        state: present
+    - name: Create User
+      user:
+        name: xyzcorp_audit
+    - name: Copy motd to etc
+      copy:
+        src: ./motd
+        dest: /etc
+    - name: Copy issue to etc
+      copy:
+        src: ./issue
+        dest: /etc
+
+- name: Update network hosts
+  hosts: network
+  become: yes
+
+  tasks:
+   - name: Install nmap
+     package:
+       name: nmap-ncat
+       state: present
+   - name: Create user
+     user:
+       name: xyzcorp_network
+
+- hosts: sysadmin
+  become: yes
+
+  tasks:
+    - name: Copy file to mnt
+      copy:
+        src: /home/ansible/scripts.tgz
+        dest: /mnt/storage
