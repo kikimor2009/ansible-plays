@@ -1,0 +1,7 @@
+ansible localhost -m setup --tree /tmp/facts
+
+ansible -b all -m package -a "name=httpd state=latest"
+
+ansible localhost -b -m copy -a "src=/tmp/facts/127.0.0.1 remote_src=yes dest=/var/www/index.html mode=0600 owner=apache group=apache"
+
+ansible localhost -b -m service -a "name=httpd state=started enabled=yes"

@@ -1,0 +1,30 @@
+---
+- hosts: web
+  become: yes
+  tasks:
+    - name: install httpd
+      package:
+        name: httpd
+        state: latest
+
+    - name: start & enable httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: download url
+      get_url:
+        url: http://repo.example.com/website.tgz
+        dest: /tmp/website.tgz
+
+    - name: unarchive
+      unarchive:
+        src: /tmp/website.tgz
+        dest: /var/www/html/
+        remote_src: yes
+
+    - name: restart https
+      service:
+        name: httpd
+        state: restarted

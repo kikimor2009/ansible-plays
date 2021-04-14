@@ -1,0 +1,21 @@
+---
+- hosts: dbservers
+  become: yes
+  tasks:
+    - name: local file
+      unarchive:
+        src: /root/file.tar.gz
+        dest: /opt
+
+    - name: remote file
+      unarchive:
+        src: /tmp/devstuff.tar.gz
+        remote_src: yes
+        dest: /opt
+
+    - archive:
+        path: /var/log/messages
+        dest: /tmp/messages.tar.gz
+    - fetch:
+        src: /tmp/messages.tar.gz
+        dest: /tmp

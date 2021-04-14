@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: yum update weekly
+      cron:
+        name: yum update weekly
+        special_time: weekly
+        job: "/ysr/bin/yum update -y"
+
+    - name: execute on reboot
+      cron:
+        name: execute script on reboot
+        special_time: reboot
+        job: "/usr/bin/status"
+
+    - name: schedule script run
+      cron:
+        name: run on mon wed fri
+        job: "/usr/bin/faillock_report"
+        weekday: "1,3,5"
+        hour: "7"
+        minute: "30"
