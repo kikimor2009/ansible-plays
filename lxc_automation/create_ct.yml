@@ -1,0 +1,32 @@
+---
+- name: Create and Run container with params
+  hosts: prox
+  vars_files:
+    - sys_conf.yml
+    - ct_conf.yml
+  tasks:
+    - name: Create new container with options
+      community.general.proxmox:
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_password }}"
+        api_host: "{{ api_host }}"
+        proxmox_default_behavior: "{{ proxmox_default_behavior }}"
+        node: "{{ node }}"
+        ostemplate: "{{ ostemplate }}"
+        onboot: "{{ onboot }}"
+        hostname: "{{ hostname }}"
+        password: "{{ password }}"
+        cpus: "{{ cpus }}"
+        cores: "{{ cores }}"
+        memory: "{{ memory }}"
+        swap: "{{ swap }}"
+        storage: "{{ storage }}"
+        disk: "{{ disk }}"
+        netif: "{{ netif }}" 
+    - name: Start the container
+      community.general.proxmox:
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_password }}"
+        api_host: "{{ api_host }}"
+        proxmox_default_behavior: "{{ proxmox_default_behavior }}"
+        state: started

@@ -1,0 +1,18 @@
+node: proxmox
+ostemplate: 'hdd_disk:vztmpl/ubuntu-18.04-standard_18.04.1-1_amd64.tar.gz'
+onboot: yes
+state: started
+
+hostname: teslxc
+password: '123456'
+
+cpus: 1
+cores: 1
+
+memory: 512
+swap: 512
+
+storage: hdd_disk
+disk: '10'
+
+netif: '{"net0":"name=eth0,ip=dhcp,ip6=dhcp,bridge=vmbr0"}'

@@ -1,0 +1,17 @@
+---
+- name: Send file to router
+  hosts: mk
+  gather_facts: false
+  tasks:
+    - name: Script upload to router
+      net_put:
+        src: ./router_config.rsc
+        protocol: sftp
+
+    - name: File demonstate after
+      community.network.routeros_command:
+        commands: /file print where name~"{{ script_name }}"
+      register: file_after
+
+    - name: debug print after
+      debug: var=file_after.stdout_lines

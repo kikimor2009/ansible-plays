@@ -1,0 +1,12 @@
+---
+- hosts: mk
+  gather_facts: false
+  tasks:
+    - name: Execute setup script
+      routeros_command:
+        commands:
+          - /import file-name="{{ script_name }}"
+      register: result
+
+    - name: result
+      debug: var=result.stdout_lines

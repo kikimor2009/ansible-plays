@@ -1,0 +1,26 @@
+---
+- name: Manage VM
+  hosts: prox
+  vars_files:
+    - sys_conf.yml
+    - kvm_conf.yml
+  tasks:
+    - name: Create VM
+      community.general.proxmox_kvm:
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_password }}"
+        api_host: "{{ api_host }}"
+        proxmox_default_behavior: "{{ proxmox_default_behavior }}"
+        node: "{{ node }}"
+        name: "{{ vmname }}"
+        onboot: "{{ onboot }}"
+        cores: "{{ cores }}"
+        cpuunits: "{{ cpuunits }}"
+        memory: "{{ memory }}"
+        balloon: "{{ balloon }}"
+        scsi:
+          scsi0: "{{ scsi0 }}"
+        scsihw: "{{ scsihw }}"
+        bootdisk: "{{ bootdisk }}"
+        net:
+          net0: "{{ net0 }}"

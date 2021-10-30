@@ -1,0 +1,16 @@
+node: proxmox
+onboot: yes
+
+vmname: Test-VM
+
+cores: 1
+cpuunits: 1024
+
+memory: 1024
+balloon: 512
+
+scsi0: "hdd_disk:10,format=qcow2"
+bootdisk: scsi0
+scsihw: virtio-scsi-pci
+
+net0: 'virtio,bridge=vmbrr0'
