@@ -1,7 +1,14 @@
 ansible localhost -m setup --tree /tmp/facts
+ansible localhost -m setup -a "filter=*ipv4*"
 
 ansible -b all -m package -a "name=httpd state=latest"
 
 ansible localhost -b -m copy -a "src=/tmp/facts/127.0.0.1 remote_src=yes dest=/var/www/index.html mode=0600 owner=apache group=apache"
 
 ansible localhost -b -m service -a "name=httpd state=started enabled=yes"
+
+ansible dbsystems -b -m service -a "name=auditd state=started enabled=yes"
+
+ansible dbsystems -b -m file -a "path=/home/consultant/.ssh state=directory owner=consultant group=consultant mode=0755"
+
+ansible dbsystems -b -m copy -a "src=/home/ansible/keys/consultant/authorized_keys dest=/home/consultant/.ssh/authorized_keys mode=0600 owner=consultant group=consultant"
